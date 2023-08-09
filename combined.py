@@ -99,14 +99,32 @@ def filter_highest_rating_app():
 
 def main():
     st.title("Code Selection")
-    code_selection = st.radio("Select a code snippet", ["Display Top Speed Horses", "Display Official Rating Horses", "Filter Highest Rating Races"])
+    code_selection = st.radio(
+        "Select a code snippet",
+        ["Display Top Speed Horses", "Display Official Rating Horses", "Filter Highest Rating Races"],
+    )
 
-    if code_selection == "Display Top Speed Horses":
-        display_top_speed_app()
-    elif code_selection == "Display Official Rating Horses":
-        display_official_rating_app()
-    elif code_selection == "Filter Highest Rating Races":
-        filter_highest_rating_app()
+    uploaded_file = st.file_uploader("Upload CSV or XLSX file", type=["csv", "xlsx"])
+
+    if uploaded_file:
+        try:
+            df = pd.read_csv(uploaded_file)
+        except Exception as e:
+            try:
+                df = pd.read_excel(uploaded_file)
+            except:
+                st.write(f"Invalid file format. Error: {e}")
+                return
+
+        if code_selection == "Display Top Speed Horses":
+            display_top_speed(df)
+        elif code_selection == "Display Official Rating Horses":
+            display_official_rating(df)
+        elif code_selection == "Filter Highest Rating Races":
+            filter_races_with_highest_rating(df)
+    else:
+        st.write("Please upload a file to proceed.")
+
 
 if __name__ == "__main__":
     main() 
