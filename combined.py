@@ -109,3 +109,4 @@ def main():
         filter_highest_rating_app()
 
 if __name__ == "__main__":
+    main() 
