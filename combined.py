@@ -101,7 +101,7 @@ def main():
     st.title("Code Selection")
     code_selection = st.radio(
         "Select a code snippet",
-        ["Display Top Speed Horses", "Display Official Rating Horses", "Filter Highest Rating Races"],
+        ["Display Top Speed Horses", "Display Official Rating Horses", "Todays Lay Bets"],
     )
 
     uploaded_file = st.file_uploader("Upload CSV or XLSX file", type=["csv", "xlsx"])
