@@ -98,10 +98,10 @@ def filter_highest_rating_app():
                 st.write(f"Invalid file format. Error: {e}")
 
 def main():
-    st.title("Code Selection")
+    st.title("Todays Bets")
     code_selection = st.radio(
         "Select a code snippet",
-        ["Display Top Speed Horses", "Display Official Rating Horses", "Todays Lay Bets"],
+        ["Todays Top Speed Bets", "Todays Official Rating Bets", "Todays Lay Bets"],
     )
 
     uploaded_file = st.file_uploader("Upload CSV or XLSX file", type=["csv", "xlsx"])
