@@ -81,7 +81,19 @@ def filter_races_with_highest_rating(df):
     race_types = ['Handicap Chase', 'Handicap Hurdle', 'Maiden', 'Listed', 'Novice Stakes', 'N H Flat']
     max_ratings = df.groupby('Race Name')['RDB Rating'].transform('max')
     df_filtered = df[(df['RDB Rating'] == max_ratings) & (df['WFF Rank'] == 1) & (df['Race Type'].isin(race_types))]
-    st.dataframe(df_filtered)
+    
+    if not df_filtered.empty:
+        st.dataframe(df_filtered)
+
+        csv_data = df_filtered.to_csv(index=False)
+        st.download_button(
+            label="Download Highest Rating Races CSV",
+            data=csv_data,
+            file_name="highest_rating_races.csv",
+            mime='text/csv'
+        )
+    else:
+        st.write("No data available for highest rating races.")
 
 def filter_highest_rating_app():
     uploaded_file = st.file_uploader("Upload CSV or XLSX file", type=["csv", "xlsx"])
@@ -96,6 +108,7 @@ def filter_highest_rating_app():
                 filter_races_with_highest_rating(df)
             except:
                 st.write(f"Invalid file format. Error: {e}")
+
 
 def main():
     st.title("Code Selection")
