@@ -56,12 +56,12 @@ def process_and_display(df, column_name, title):
     if len(df) > 0:
         df[column_name] = pd.to_numeric(df[column_name])
         top_horses = df.groupby('Race Name').apply(lambda x: x.loc[x[column_name].idxmax()]).reset_index(drop=True)
-        top_horses = top_horses[['Time', 'Venue', 'Date', column_name, 'Race Type', 'Trainer', 'Horse']]
+        top_horses = top_horses[['Time', 'Venue', 'Date', column_name, 'Race Type', 'BSP', 'Win Result', 'Trainer', 'Horse']]
 
         if len(top_horses) > 0:
             top_horses['Time'] = top_horses['Time'].astype(str)
             top_horses = top_horses.sort_values('Time')
-            top_horses = top_horses[['Horse', 'Time', 'Venue', 'Date', column_name, 'Race Type', 'Trainer']]
+            top_horses = top_horses[['Horse', 'Time', 'Venue', 'Date', column_name, 'BSP', 'Win Result', 'Race Type', 'Trainer']]
             st.dataframe(top_horses)
 
             csv_data = top_horses.to_csv(index=False)
